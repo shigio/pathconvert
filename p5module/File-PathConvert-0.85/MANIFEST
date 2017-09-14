@@ -1,0 +1,12 @@
+MANIFEST
+Makefile.PL
+PathConvert.pm
+PathConvert.html
+README
+mkshadow
+t/abs2rel.t
+t/realpath.t
+t/splitjoindirs.t
+t/joinpath.t
+t/rel2abs.t
+t/splitjoinpath.t

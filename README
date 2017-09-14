@@ -1,0 +1,194 @@
+PathConvert tools
+
+						2016/11/24 Shigio Yamaguchi
+
+This is a package which includes tools for path conversion.
+
+	Contents
+	========
+	1. Pathconvert library for C language
+	2. Improved X lndir
+	3. Improved BSD ln(1)
+	4. Improved GNU ln(1)
+	5. File-PathConvert module for perl5
+
+
+1. Pathconvert library for C language
+=====================================
+
+Two functions are available.
+
+o abs2rel: make a relative path name from an absolute path name
+
+  abs2rel(<original path name>, <base directory>, <result>, <size of result>);
+
+	INPUT			INPUT			OUTPUT
+        <original path name>    <base directory>        <result>
+        /usr/src                /etc                    ../usr/src
+
+
+o rel2abs: make an absolute path name from a relative path name
+
+  rel2abs(<original path name>, <base directory>, <result>, <size of result>);
+
+	INPUT			INPUT			OUTPUT
+        <original path name>    <base directory>        <result>
+        ../usr/src              /etc                    /usr/src
+
+How to install:
+
+	% cd lib				# move to lib directory
+	% make					# make
+	% make test				# test
+
+
+2. Improved X lndir
+===================
+
+Lndir duplicates directory tree and makes symbolic links to original files.
+This command is derived from X11 and slightly modified to generate relative
+symbolic link.
+
+Installation:
+
+        % make
+	% cd lndir
+        % xmkmf
+        % make
+        % make install
+
+Usage:
+
+        % mkdir /tmp/sys_shadow
+        % lndir /usr/src/sys /tmp/sys_shadow
+        /usr/src/sys/compile:
+        /usr/src/sys/conf:
+        /usr/src/sys/ddb:
+        /usr/src/sys/dev:
+                .
+                .
+                .
+        % cd /tmp/sys_shadow
+        % ls -lL Makefile
+        -rw-r--r--  1 root  wheel  190 Jun 14  1996 Makefile
+        % ls -l Makefile
+	lrwxr-xr-x  1 shigio  wheel  26 Dec 29 14:18 Makefile -> ../../usr/src/sys/Makefile
+
+Using original lndir, it would be absolute like this.
+
+        lrwxr-xr-x  1 shigio  wheel  26 Dec 29 14:18 Makefile -> /usr/src/sys/Makefile
+
+
+3. Improved BSD ln(1)
+=====================
+
+This command is derived from FreeBSD and slightly modified to make right and
+relative (or absolute) symbolic link. -a and -r option are added.
+
+Installation:
+
+	(You need BSD build system.)
+        % make
+	% cd ln
+        % make
+        % make install
+
+Ex1: You can make right and relative (or absolute) symbolic link.
+	% cd /usr/src/sys
+	% ls -l kern/tty.c
+	-rw-r--r--  1 root  wheel  56525 Jul  3 09:27 kern/tty.c
+	% ln -sf kern/tty.c ~/tmp
+	% ls -l ~/tmp/tty.c
+	lrwxrwxrwx  1 shigio  users  10 Jul 13 18:08 /home/shigio/tmp/tty.c ->
+					kern/tty.c
+					~~~~~~~~~~
+					(wrong symbolic link)
+	% ln -sfr kern/tty.c ~/tmp
+	% ls -l ~/tmp/tty.c
+	lrwxrwxrwx  1 shigio  users  31 Jul 13 13:28 /home/shigio/tmp/tty.c ->
+					../../../usr/src/sys/kern/tty.c
+					~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					(right and relative symbolic link)
+	% ln -sfa kern/tty.c ~/tmp
+	% ls -l ~/tmp/tty.c
+	lrwxrwxrwx  1 shigio  users  31 Jul 13 13:28 /home/shigio/tmp/tty.c ->
+					/usr/src/sys/kern/tty.c
+					~~~~~~~~~~~~~~~~~~~~~~~
+					(right and absolute symbolic link)
+
+Ex2: You can make symbolic link even if the target isn't exist.
+     (This is a spec of symbolic link. ln(1) doens't print warning message.)
+	% cd /usr/src/sys
+	% ls -l kern/noexist.c
+	ls: kern/noexist.c: No such file or directory
+	% ln -sr kern/noexist.c ~/tmp
+	% ls -l ~/tmp/noexist.c 
+	lrwxrwxrwx  1 shigio  users  36 Jul 13 17:53 /home/shigio/tmp/noexist.c ->
+					../../../usr/src/sys/kern/noexist.c
+					~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					(not exist but right symbolic link)
+
+Ex3: You can make shadow tree with relative symbolic link like this.
+	% cd /usr/src/sys
+	% set obj=/usr/obj`pwd`
+	% mkdir -p $obj
+	% find * -type d -exec mkdir $obj/'{}' ';'
+	% find * -type f -exec ln -sr '{}' $obj/'{}' ';'
+
+
+4. Improved GNU ln(1)
+=====================
+
+This command is derived from GNU fileutils-3.16 and slightly modified to make
+right and relative (or absolute) symbolic link. -a and -r option are added.
+
+Installation:
+
+        (Please fetch fileutils-3.16 from ftp site. Then ...)
+	% cd gnuln
+	% tar xzf fileutils-3.16.tar.gz
+	% cp ../lib/abs2rel.c ../lib/rel2abs.c fileutils-3.16/lib
+	% cp Makefile.in fileutils-3.16/lib
+	% cp ln.c fileutils-3.16/src
+	% cp ln.1 fileutils-3.16/man
+        % cd fileutils-3.16
+        % sh configure
+	% make
+	# make install
+
+Usage is the same with improved BSD ln(1).
+
+
+5. File-PathConvert module for perl5
+====================================
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+NOTE:	Now File::PathConvert module was merged into File::Spec module
+	which is included by perl core package.  So, you had better
+	use File::Spec instead of this module.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+This is a module to use path conversion facility from perl5 environment.
+You need perl version 5.002 or later.
+
+This package includes two version of File-PathConvert.
+
+	o File-PathConvert-0.4		unix version
+	o File-PathConvert-0.85		multiplatform version
+
+Installation:
+
+        % perl Makefile.PL
+        % make
+        % make test
+        # make install          <- as a root
+
+This module includes sample application 'mkshadow'.
+You will find the usage for the looking.
+
+----------------------------------------------------------------------------
+The latest verion is here.
+
+	http://www.tamacom.com/pathconvert.html
+
+Comments appreciated. Thank you in advance.

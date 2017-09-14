@@ -1,0 +1,114 @@
+----------------------------------------------------------------------------
+
+PathConvert module 0.4 for perl version5
+
+					Shigio Yamaguchi	8-Mar-1998
+
+----------------------------------------------------------------------------
+1. Introduction
+
+This module has three subroutines and a sample application.
+
+realpath - make a canonicalized absolute path name
+
+abs2rel - make a relative path from an absolute path
+
+	'/usr/src/bin' and '/usr/local/lib' -> '../../src/bin'
+	(target directory)  (current directory)
+
+rel2abs - make an absolute path from a relative path
+
+	'../../src/bin' and '/usr/local/lib' -> '/usr/src/bin'
+	(target directory)  (current directory)
+
+mkshadow - a sample application of PathConvert module
+
+	This command duplicate directory tree with relative symbolic link.
+
+2. Method for test and install
+
+You need perl version 5.002 or later.
+
+	% perl Makefile.PL
+	% make
+	% make test
+	# make install		<- as a root
+
+3. Files list
+
+README		... this file
+Makefile.PL	... makefile for test and install
+PathConvert.pm	... PathConvert module
+mkshadow	... sample application of PathConvert module
+test.pl		... test script
+MANIFEST	... file list
+
+4. History
+
+17-Sep-1996	first RFC on comp.lang.perl.modules.
+		Subject: RFC File::PathConvert module
+		Message-ID: <51m90o$pos@newsgate.so-net.or.jp>
+
+7-Oct-1996	second RFC on comp.lang.perl.modules.
+		Subject: 2nd RFC File::PathConvert module
+		Message-ID: <53a449$2qo@newsgate.so-net.or.jp>
+
+		PathConvert.pm -
+			use @EXPORT_OK instead of @EXPORT.
+			realpath added.
+			use $SL variable for path separator.
+
+23-Oct-1996	version 0.1
+			Tested with perl5.003_02.
+
+3-Sep-1997	version 0.2
+
+		PathConvert.pm
+			- SYNOPSIS fixed.
+			- Tested with perl5.004_02.
+		README	- Mail address changed.
+			- History added.
+
+9-Jan-1998	version 0.3
+
+		PathConvert.pm
+			- fixed the statment of online manual.
+
+		Following useful modifications were submitted by Jesse N. Glick.
+
+		* using $VERSION, to placate CPAN, Exporter, MakeMaker, etc.
+		* exporting package variables, all of which seem to be designed
+		  for possible customization (or retrieval of info in the case
+		  of $resolved)
+		* prototyping public functions (those extra semicolons prevent
+		  e.g. CPerl mode from thinking `$' escapes the following `)'
+		  and messing up Emacs)
+		* using standard indented format for literal program examples;
+		  use of .br is nonstandard and will not work on anything but
+		  nroff/troff (e.g. pod2html)
+		* including suggested use of $resolved in SYNOPSIS
+		* putting more useful information in the warning messages
+
+8-Mar-1998	version 0.4
+
+		mkshadow
+			- Bug (Mkshadow converted symbolic links into real path.)
+			  fixed.
+		abs2rel	- modified to produce regularize path name.
+
+5. Copyright
+
+Copyright (c) 1996, 1997, 1998 Shigio Yamaguchi. All rights reserved.
+Copyright (c) 1999 Tama Communications Corporation. All rights reserved.
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+
+Please enjoy and report any bugs to <shigio@tamacom.com>.
+Thank you.
+----------------------------------------------------------------------------
+E-Mail: shigio@tamacom.com
+WWW:    http://www.tamacom.com/unix/
+	(You can find the latest version here.)
+----------------------------------------------------------------------------

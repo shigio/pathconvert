@@ -1,0 +1,5 @@
+LOCAL_LIBRARIES = -L../lib -lpathconvert
+        DEPLIBS = ../libpathconvert.a
+        DEFINES = -DPATHCONVERT
+
+SimpleProgramTarget(lndir)

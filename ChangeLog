@@ -1,0 +1,186 @@
+Pathconvert project history.
+----------------------------
+
+23-Nov-2016	Pathconvert library was adopted by FreeBSD core (lib/libpathconv).
+
+11-Jul-2006	Removed abs2rel (bash script) because it is not maintained well.
+
+19-Dec-2005	Added LGPL version of abs2rel() and rel2abs().
+
+29-Aug-2004	Replaced Makefile with more generic one and fixed README. 
+
+9-Feb-2004	Bug fixed: rel2abs(".", "/") generated ''. It should be '/'.
+		Reported by Sergei Birj.
+
+18-May-2002	abs2rel script by D. J. Hawkey Jr.
+
+27-April-2002	RFC about g_abs2rel and g_rel2abs on 'gtk-devel-list gnome org'
+		mailing list.
+
+		From: "Shigio Yamaguchi" <shigio tamacom com> 
+		To: gtk-devel-list gnome org 
+		Subject: New functions for converting path name. 
+		Date: Sat, 27 Apr 2002 12:58:23 +0900 
+
+14-Feb-2002	Abs2rel() function was merged into GNU GLOBAL source code
+		tag system.
+
+3-Sep-1999	NetBSD includes File::PathConvert version 0.85 as a package.
+
+15-Feb-1999	File::PathConvert module was merged into File::Spec as a part
+		of perl5.005_55 (development release working toward 5.006). 
+
+3-Feb-1999	File::PathConvert version 0.85 by Barrie Slaymaker.
+
+18-Dec-1998	File::PathConvert version 0.84 by Barrie Slaymaker.
+
+4-Dec-1998	Improved GNU ln(1).
+
+21-Nov-1998	File::PathConvert version 0.82 by Barrie Slaymaker.
+
+		Added beginnings of URL support.
+
+8-Sep-1998	File::PathConvert version 0.7 by Barrie Slaymaker.
+
+		Implemented a more flexible parameterization scheme for 
+		customizing for different OSs.  WE NEED MacOS, VMS, OS/2, etc.
+
+5-Sep-1998	File::PathConvert version 0.6 by Barrie Slaymaker.
+
+		Incorporated feedback from Tye McQueen to make REs more
+		reliable and clear.
+
+30-Aug-1998	File::PathConvert version 0.5 by Barrie Slaymaker.
+
+		Added support for multiplatform use, fully implemented and
+		tested only for Win32 based perl.
+
+		1st RFC of multiplatform version.
+
+		Newsgroups: comp.lang.perl,comp.lang.perl.modules
+		Message-ID: <35E985CD.AD289186@lm.com>
+		Date: Sun, 30 Aug 1998 13:03:09 -0400
+		From: "Barrie Slaymaker (home)" <rbs@lm.com>
+		Subject: File::PathConvert for your review
+
+14-Jul-1998	Improved BSD ln(1) 2nd RFC.
+
+		To: hackers@FreeBSD.ORG
+		Subject: Improvement of ln(1). [Second RFC]
+		Date: Tue, 14 Jul 1998 00:40:17 +0900
+
+13-Jul-1998	Improved BSD ln(1).
+
+11-Jul-1998	Improved BSD ln(1) 1st RFC.
+
+		To: hackers@freebsd.org
+		Subject: Improvemnet of ln(1).
+		Date: Sat, 11 Jul 1998 02:39:37 +0900
+
+8-Mar-1998	File::PathConvert for perl5 version 0.4
+
+		mkshadow
+			- Bug (Mkshadow converted symbolic links into real path.)
+			  fixed.
+		abs2rel	- modified to produce regularize path name.
+
+
+9-Jan-1998	File::PathConvert for perl5 version 0.3
+
+		PathConvert.pm
+			- fixed the statment of online manual.
+
+		Following useful modifications were submitted by Jesse N. Glick.
+
+		* using $VERSION, to placate CPAN, Exporter, MakeMaker, etc.
+		* exporting package variables, all of which seem to be designed
+		  for possible customization (or retrieval of info in the case
+		  of $resolved)
+		* prototyping public functions (those extra semicolons prevent
+		  e.g. CPerl mode from thinking `$' escapes the following `)'
+		  and messing up Emacs)
+		* using standard indented format for literal program examples;
+		  use of .br is nonstandard and will not work on anything but
+		  nroff/troff (e.g. pod2html)
+		* including suggested use of $resolved in SYNOPSIS
+		* putting more useful information in the warning messages
+
+29-Dec-1997	Pathconvert library for C language alpha 3 version.
+
+		Sample application lndir was added.
+
+22-Dec-1997	Pathconvert library for C language 2nd RFC
+		and alpha 2nd version.
+
+		To: hackers@freebsd.org
+		Subject: second RFC about abs2rel() and rel2abs().
+		Date: Mon, 29 Dec 1997 15:10:14 +0900
+
+		SYNOPSIS was changed like this.
+
+		#include <sys/param.h>
+		char *
+		abs2rel(const char *path, const char *base,
+						char result[MAXPATHLEN])
+			|
+			v
+		char *
+		abs2rel(const char *path, const char *base,
+						char *result, size_t size)
+						~~~~~~~~~~~~  ~~~~~~~~~~~
+						buffer address, buffer size
+
+		#include <sys/param.h>
+		char *
+		rel2abs(const char *path, const char *base,
+						char result[MAXPATHLEN])
+			|
+			v
+		char *
+		rel2abs(const char *path, const char *base,
+						char *result, size_t size)
+						~~~~~~~~~~~~  ~~~~~~~~~~~
+						buffer address, buffer size
+
+		Thanks to
+			Andrew Kenneth Milton
+			John Polstra
+		for their comments.
+
+4-Dec-1997	Pathconvert library for C language 1st RFC
+		and alpha 1st version.
+
+		Fist RFC on hackers@freebsd.org.
+		To: hackers@freebsd.org
+		Message-Id: <199712032230.WAA28837@wafu.netgate.net>
+		Subject: [RFC] path converting functions.
+		Date: Thu, 04 Dec 1997 15:28:35 +0900
+
+3-Sep-1997	File::PathConvert for perl5 version 0.2
+
+		PathConvert.pm
+			- SYNOPSIS fixed.
+			- Tested with perl5.004_02.
+		README	- Mail address changed.
+			- History added.
+
+23-Oct-1996	File::PathConvert for perl5 version 0.1
+
+			Tested with perl5.003_02.
+
+7-Oct-1996	File::PathConvert for perl5 2nd RFC.
+
+		second RFC on comp.lang.perl.modules.
+		Subject: 2nd RFC File::PathConvert module
+		Message-ID: <53a449$2qo@newsgate.so-net.or.jp>
+
+		PathConvert.pm -
+			use @EXPORT_OK instead of @EXPORT.
+			realpath added.
+			use $SL variable for path separator.
+
+17-Sep-1996	File::PathConvert for perl5 1st RFC.
+
+		first RFC on comp.lang.perl.modules.
+		Subject: RFC File::PathConvert module
+		Message-ID: <51m90o$pos@newsgate.so-net.or.jp>

@@ -1,0 +1,90 @@
+.\"
+.\" Copyright (c) 1997 Shigio Yamaguchi. All rights reserved.
+.\" Copyright (c) 1999 Tama Communications Corporation. All rights reserved.
+.\"
+.\" The Pathconvert library is free software; you can redistribute it and/or
+.\" modify it under the terms of the GNU Lesser General Public
+.\" License as published by the Free Software Foundation; either
+.\" version 2.1 of the License, or (at your option) any later version.
+.\"
+.\" The Pathconvert is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" Lesser General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU Lesser General Public
+.\" License along with the GNU C Library; if not, write to the Free
+.\" Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+.\" 02111-1307 USA.
+.\"
+.Dd Dec 19, 2005"
+.Dt REL2ABS 3
+.Os
+.Sh NAME
+.Nm rel2abs
+.Nd make an absolute path name from a relative path name
+.Sh SYNOPSIS
+.Ft "char *"
+.Fn rel2abs "const char *path" "const char *base" "char *result" "size_t size"
+.Sh DESCRIPTION
+The
+.Fn rel2abs
+function makes an absolute path name from a relative path name
+.Fa path
+based on a directory
+.Fa base
+and copies the resulting path name into the memory referenced by
+.Fa result .
+The
+.Fa result
+argument must refer to a buffer capable of storing at least
+.Fa size
+character
+
+The resulting path name may include symbolic links.
+.Fn abs2rel
+doesn't check whether or not any path exists.
+.Sh "RETURN VALUES"
+The
+.Fn rel2abs
+function returns absolute path name on success.
+If an error occurs, it returns
+.Dv NULL .
+.Sh ERRORS
+The
+.Fn rel2abs
+function may fail and set the external variable
+.Va errno
+to indicate the error.
+.Bl -tag -width Er
+.It Bq Er EINVAL
+The
+.Fa base
+directory isn't an absolute path name or the
+.Fa size
+argument is zero.
+.It Bq Er ERANGE
+The
+.Fa size
+argument is greater than zero but smaller than the length of the pathname plus 1
+.Sh EXAMPLE
+    char result[MAXPATHLEN];
+    char *path = rel2abs("../../src/sys", "/usr/local/lib", result, MAXPATHLEN);
+
+yields:
+
+    path == "/usr/src/sys"
+
+Similarly,
+
+    path1 = rel2abs("src/sys", "/usr", result, MAXPATHLEN);
+    path2 = rel2abs(".", "/usr/src/sys", result, MAXPATHLEN);
+
+yields:
+
+    path1 == "/usr/src/sys"
+    path2 == "/usr/src/sys"
+.Sh "SEE ALSO"
+.Xr abs2rel 3
+.Sh AUTHORS
+Shigio Yamaguchi (shigio@tamacom.com)

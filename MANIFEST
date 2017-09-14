@@ -1,0 +1,10 @@
+ChangeLog	History of path convert project.
+README.md	README first.
+manual.txt	Online manual (text format)
+lib		Pathconvert library for C language (abs2rel(3), rel2abs(3))
+lib/LGPL	LGPL version of Pathconvert library.
+bsdln		Improved BSD ln(1).
+gnuln		Improved GNU ln(1).
+lndir		Improved X Lndir(1).
+p5module	File-PathConvert module for perl5.
+shell		abs2rel script for sh.
