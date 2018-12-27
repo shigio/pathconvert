@@ -84,7 +84,7 @@ SEE ALSO
      rel2abs(3)
 
 AUTHORS
-     Shigio Yamaguchi (shigio@tamacom.com)
+     Shigio YAMAGUCHI (shigio@gnu.org)
 
 BSD                              Dec 15, 1997"                               2
 
@@ -144,7 +144,7 @@ SEE ALSO
      abs2rel(3)
 
 AUTHORS
-     Shigio Yamaguchi (shigio@tamacom.com)
+     Shigio YAMAGUCHI (shigio@gnu.org)
 
 BSD                              Dec 3, 1997"                                1
 -------------------------------------------------------------------------------
