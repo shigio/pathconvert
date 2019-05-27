@@ -1,9 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/param.h>
 #include <errno.h>
 
 char	*rel2abs __P((const char *, const char *, char *, size_t));
 
+int
 main(argc, argv)
 int	argc;
 char	*argv[];
